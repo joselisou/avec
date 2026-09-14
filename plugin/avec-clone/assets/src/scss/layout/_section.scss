@@ -2,6 +2,10 @@
 @use "../abstracts/mixins" as m;
 
 .avec-clone-section {
+	// Measured on the real app: content sits on a light-gray page background,
+	// with white cards/panels floating on top for contrast.
+	background: v.$color-bg;
+	min-height: 100vh;
 	padding: v.$space-md;
 	// Room for the fixed bottom tab bar on mobile.
 	padding-bottom: 72px;

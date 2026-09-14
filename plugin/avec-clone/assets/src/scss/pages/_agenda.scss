@@ -1,0 +1,83 @@
+@use "../abstracts/variables" as v;
+
+// Measured on the real Avec Pro agenda: 44px per 30-minute row, 2px dashed
+// row dividers, a narrow time column, and colored blocks positioned/sized
+// by appointment duration over the grid.
+$row-height: 44px;
+
+.avec-clone-agenda__header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: v.$space-sm;
+	margin-bottom: v.$space-md;
+}
+
+.avec-clone-agenda__date-label {
+	font-weight: 600;
+	color: v.$color-neutral-dark;
+}
+
+.avec-clone-agenda__date-picker input {
+	border: 1px solid v.$color-border;
+	border-radius: v.$control-radius;
+	padding: v.$space-xs v.$space-sm;
+	font-family: v.$font-text;
+}
+
+.avec-clone-agenda__grid {
+	position: relative;
+	border: 1px solid v.$color-border;
+	background: v.$color-surface;
+}
+
+.avec-clone-agenda__row {
+	display: flex;
+	height: $row-height;
+	border-bottom: 2px dashed v.$color-border;
+	box-sizing: border-box;
+}
+
+.avec-clone-agenda__time {
+	flex: 0 0 80px;
+	padding: v.$space-xs v.$space-sm;
+	font-size: 0.8rem;
+	color: v.$color-neutral-dark;
+	border-right: 1px solid v.$color-border;
+}
+
+.avec-clone-agenda__slot {
+	flex: 1;
+}
+
+.avec-clone-agenda__booking {
+	position: absolute;
+	left: 80px;
+	right: 0;
+	box-sizing: border-box;
+	overflow: hidden;
+	padding: 5px 8px;
+	border: 2px solid v.$color-surface;
+	color: v.$color-surface;
+	font-size: 0.8rem;
+	line-height: 1.3;
+	display: flex;
+	flex-direction: column;
+	// Confirmed/client appointment — measured on the real app.
+	background: #e86b6f;
+
+	&.is-blocked {
+		// Internal block (folga/almoço/bloqueio) — measured on the real app.
+		background: #087;
+	}
+
+	strong {
+		font-weight: 600;
+	}
+}
+
+.avec-clone-agenda__empty {
+	margin-top: v.$space-md;
+	color: v.$color-neutral-dark;
+}

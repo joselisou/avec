@@ -46,6 +46,22 @@ const posts: WxrPost[] = [
     },
     terms: [{ taxonomy: 'avec_recibo_tipo', name: 'salao_servicos' }],
   },
+  {
+    postType: 'avec_agendamento',
+    title: 'Corte Feminino — Cliente Fixture Um',
+    postDate: '2025-07-19 00:00:00',
+    meta: {
+      _avec_source_id: 10000,
+      _avec_data: '2025-07-19',
+      _avec_hora_inicio: 570, // 09:30
+      _avec_hora_fim: 630, // 10:30
+      _avec_valor: 90,
+      _avec_servico: 'Corte Feminino',
+      _avec_cliente_source_id: 1,
+      _avec_comanda_source_id: 100,
+    },
+    terms: [{ taxonomy: 'avec_agendamento_status', name: 'concluido' }],
+  },
 ];
 
 const xml = buildWxr(posts, {

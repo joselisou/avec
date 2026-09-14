@@ -1,0 +1,62 @@
+@use "../abstracts/variables" as v;
+
+// Measured on the real Comissões report: white cards on the light-gray page
+// background, bold purple labels/headings, and stat pairs with a thin
+// secondary-color accent bar on their left edge.
+.avec-clone-panel {
+	background: v.$color-surface;
+	border: 1px solid v.$color-border;
+	border-radius: v.$control-radius;
+	padding: v.$space-md;
+	margin-bottom: v.$space-sm;
+}
+
+.avec-clone-panel__title {
+	color: v.$color-primary-dark;
+	font-size: 0.8rem;
+	font-weight: 700;
+	text-transform: none;
+	margin: 0 0 v.$space-sm;
+
+	&--detail {
+		margin-top: v.$space-lg;
+		background: none;
+		border: none;
+		padding: 0;
+	}
+}
+
+.avec-clone-panel__stat-row {
+	display: flex;
+	justify-content: space-between;
+	color: v.$color-primary-dark;
+	font-weight: 700;
+	padding: v.$space-xs 0;
+
+	strong {
+		color: v.$color-text;
+	}
+}
+
+.avec-clone-panel__columns {
+	display: flex;
+	flex-wrap: wrap;
+	gap: v.$space-lg;
+}
+
+.avec-clone-panel__column {
+	flex: 1 1 160px;
+	border-left: 3px solid v.$color-secondary;
+	padding-left: v.$space-sm;
+	display: flex;
+	flex-direction: column;
+}
+
+.avec-clone-panel__column-label {
+	font-weight: 600;
+	font-size: 0.875rem;
+}
+
+.avec-clone-panel__column-value {
+	color: v.$color-neutral-darker;
+}
