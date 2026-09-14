@@ -12,21 +12,41 @@
 .avec-clone-card {
 	display: flex;
 	flex-wrap: wrap;
-	align-items: baseline;
+	align-items: center;
 	gap: v.$space-sm;
-	padding: v.$space-md;
-	background: v.$color-surface;
-	border: 1px solid v.$color-border;
-	border-radius: 8px;
+	padding: 10px;
+	// Measured on the real app's client cards: near-white background, a soft
+	// drop shadow instead of a border, 4px radius.
+	background: #fafafa;
+	border-radius: 4px;
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.18);
 
 	&[hidden] {
 		display: none;
 	}
 }
 
+.avec-clone-card__avatar {
+	flex: 0 0 auto;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background: v.$color-neutral-light;
+	color: v.$color-surface;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	svg {
+		width: 22px;
+		height: 22px;
+		fill: currentcolor;
+	}
+}
+
 .avec-clone-card__title {
 	flex: 1 1 auto;
-	font-weight: 600;
+	font-weight: 700;
 }
 
 .avec-clone-card__date,
