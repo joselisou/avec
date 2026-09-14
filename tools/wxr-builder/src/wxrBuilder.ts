@@ -92,9 +92,13 @@ ${categories ? categories + '\n' : ''}${postmeta}
   </item>`;
 }
 
+// Deliberately not `new Date()`: buildWxr's output must be byte-for-byte reproducible from the
+// same input (fake-data-generator's dataset and the test fixture are both committed to git and
+// checked in CI for drift), so nothing in it may depend on wall-clock time.
+const CHANNEL_PUB_DATE = 'Thu, 01 Jan 1970 00:00:00 GMT';
+
 /** Builds a WXR 1.2 XML document from a flat list of posts. Post IDs are assigned sequentially. */
 export function buildWxr(posts: WxrPost[], options: WxrOptions): string {
-  const now = new Date().toUTCString();
   const items = posts.map((post, index) => renderItem(post, index + 1, options)).join('\n');
 
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -109,7 +113,7 @@ export function buildWxr(posts: WxrPost[], options: WxrOptions): string {
   <title>${cdata(options.siteTitle)}</title>
   <link>${xmlEscape(options.siteUrl)}</link>
   <description>${cdata('Avec Clone data export')}</description>
-  <pubDate>${now}</pubDate>
+  <pubDate>${CHANNEL_PUB_DATE}</pubDate>
   <language>pt-BR</language>
   <wp:wxr_version>1.2</wp:wxr_version>
   <wp:base_site_url>${xmlEscape(options.siteUrl)}</wp:base_site_url>

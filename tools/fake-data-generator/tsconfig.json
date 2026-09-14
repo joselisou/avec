@@ -9,5 +9,6 @@
     "outDir": "dist",
     "resolveJsonModule": true
   },
-  "include": ["src", "../wxr-builder/src"]
+  "include": ["src", "../wxr-builder/src"],
+  "exclude": ["../wxr-builder/src/**/*.test.ts"]
 }
