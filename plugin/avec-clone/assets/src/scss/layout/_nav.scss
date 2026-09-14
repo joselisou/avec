@@ -1,0 +1,60 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+// Mobile-first: a fixed bottom tab bar. From the tablet breakpoint up it
+// becomes a fixed left-hand sidebar instead — no wrapping container needed,
+// since `.avec-clone-section` (the sibling `<main>`) reserves space for
+// whichever layout is active via padding/margin below.
+.avec-clone-nav {
+	position: fixed;
+	inset-inline: 0;
+	bottom: 0;
+	z-index: 10;
+	background: v.$color-surface;
+	border-top: 1px solid v.$color-border;
+
+	@include m.from-tablet {
+		inset-inline: auto;
+		inset-block: 0;
+		left: 0;
+		width: 220px;
+		border-top: none;
+		border-right: 1px solid v.$color-border;
+	}
+}
+
+.avec-clone-nav__list {
+	display: flex;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+
+	@include m.from-tablet {
+		flex-direction: column;
+		padding-top: v.$space-lg;
+	}
+}
+
+.avec-clone-nav__item {
+	flex: 1;
+	text-align: center;
+
+	a {
+		display: block;
+		padding: v.$space-sm v.$space-xs;
+		color: v.$color-muted;
+		text-decoration: none;
+		font-size: 0.8rem;
+
+		@include m.from-tablet {
+			text-align: left;
+			padding: v.$space-sm v.$space-md;
+			font-size: 1rem;
+		}
+	}
+
+	&.is-active a {
+		color: v.$color-primary;
+		font-weight: 600;
+	}
+}

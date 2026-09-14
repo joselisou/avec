@@ -1,0 +1,26 @@
+{
+  "name": "@avec-clone/wxr-builder",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Converte o JSON normalizado extraído do Avec Pro em um arquivo WXR (WordPress eXtended RSS) para import no plugin.",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint src",
+    "format": "prettier --check src",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@eslint/js": "^9.11.1",
+    "@types/node": "^22.7.4",
+    "eslint": "^9.11.1",
+    "fast-xml-parser": "^4.5.0",
+    "prettier": "^3.3.3",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.8.0",
+    "vitest": "^2.1.1"
+  }
+}

@@ -1,0 +1,18 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+.avec-clone-section {
+	padding: v.$space-md;
+	// Room for the fixed bottom tab bar on mobile.
+	padding-bottom: 72px;
+
+	@include m.from-tablet {
+		// Room for the fixed sidebar from the tablet breakpoint up.
+		margin-left: 220px;
+		padding-bottom: v.$space-md;
+	}
+
+	h1 {
+		margin-top: 0;
+	}
+}

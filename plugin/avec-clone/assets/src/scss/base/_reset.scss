@@ -1,0 +1,13 @@
+@use "../abstracts/variables" as v;
+
+.avec-clone-login,
+.avec-clone-section,
+.avec-clone-nav {
+	box-sizing: border-box;
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: inherit;
+	}
+}

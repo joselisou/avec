@@ -1,0 +1,40 @@
+@use "../abstracts/variables" as v;
+
+.avec-clone-login {
+	max-width: 360px;
+	margin: 10vh auto;
+	padding: v.$space-lg;
+
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: v.$space-sm;
+	}
+
+	label {
+		font-size: 0.875rem;
+		color: v.$color-muted;
+	}
+
+	input {
+		padding: v.$space-sm;
+		border: 1px solid v.$color-border;
+		border-radius: 6px;
+		font-size: 1rem;
+	}
+
+	button {
+		margin-top: v.$space-sm;
+		padding: v.$space-sm v.$space-md;
+		background: v.$color-primary;
+		color: #fff;
+		border: none;
+		border-radius: 6px;
+		font-size: 1rem;
+		cursor: pointer;
+	}
+
+	&__error {
+		color: #b91c1c;
+	}
+}

@@ -1,0 +1,16 @@
+// Mobile-first breakpoints — base styles target the smallest screen; these
+// mixins add rules for progressively larger ones.
+$breakpoint-tablet: 600px;
+$breakpoint-desktop: 960px;
+
+$color-bg: #f7f5f3;
+$color-surface: #fff;
+$color-text: #1f2933;
+$color-muted: #6b7280;
+$color-primary: #7c3aed;
+$color-border: #e5e7eb;
+
+$space-xs: 4px;
+$space-sm: 8px;
+$space-md: 16px;
+$space-lg: 24px;
