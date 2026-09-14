@@ -168,9 +168,10 @@
 }
 
 .avec-clone-btn {
-	display: block;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	height: v.$control-height;
-	line-height: calc(#{v.$control-height} - 4px);
 	padding: 0 v.$space-lg;
 	border-radius: v.$control-radius;
 	border: 2px solid v.$color-primary;

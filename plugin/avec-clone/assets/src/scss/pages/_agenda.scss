@@ -80,11 +80,31 @@ $row-height: 44px;
 	}
 }
 
+// Wraps the day grid's separately-clickable month/year labels — own
+// improvement over the real app, which has no drill-up shortcut.
+.avec-clone-datepicker__nav-labels {
+	display: flex;
+	gap: v.$space-xs;
+}
+
+.avec-clone-datepicker__nav-label {
+	text-decoration: underline dotted;
+	text-underline-offset: 3px;
+}
+
 .avec-clone-datepicker__grid {
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
 	gap: 2px;
 	text-align: center;
+
+	&--months {
+		grid-template-columns: repeat(4, 1fr);
+	}
+
+	&--years {
+		grid-template-columns: repeat(5, 1fr);
+	}
 }
 
 .avec-clone-datepicker__weekday {
@@ -110,6 +130,14 @@ $row-height: 44px;
 		background: v.$color-primary;
 		color: v.$color-white;
 	}
+}
+
+// Month/year names are wider than a two-digit day number, so the month and
+// year grids use a rounded-rect cell instead of the day grid's circle.
+.avec-clone-datepicker__grid--months .avec-clone-datepicker__day,
+.avec-clone-datepicker__grid--years .avec-clone-datepicker__day {
+	border-radius: v.$control-radius;
+	padding: v.$space-sm 0;
 }
 
 .avec-clone-agenda__grid {
