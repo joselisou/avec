@@ -13,9 +13,12 @@ import { collectClienteIds } from './collectClienteIds.js';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const dataRoot = path.resolve(here, '../../../data/real');
 
-const AGENDA_CONCURRENCY = 5;
-const COMANDA_CONCURRENCY = 5;
-const CLIENTE_CONCURRENCY = 5;
+// Sequential on purpose — this hits Avec's real production API, not a sandbox. Combined with the
+// fixed per-request delay in AvecApiClient.get(), this keeps load light and spread out instead
+// of bursty, to avoid tripping rate limits or adding noticeable load to their system.
+const AGENDA_CONCURRENCY = 1;
+const COMANDA_CONCURRENCY = 1;
+const CLIENTE_CONCURRENCY = 1;
 
 async function readJsonIfExists<T>(filePath: string): Promise<T | null> {
   try {

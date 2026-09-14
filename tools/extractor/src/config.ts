@@ -20,4 +20,6 @@ export const config = {
   password: requireEnv('AVEC_PASSWORD'),
   apiBaseUrl: 'https://api.avec.beauty',
   extractionStartDate: '2025-07-19',
+  /** Fixed pause after every successful API call, to spread load gently on Avec's production API. */
+  requestDelayMs: 400,
 };

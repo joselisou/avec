@@ -3,6 +3,10 @@ import { login, type Session } from './auth.js';
 
 const MAX_RETRIES = 3;
 
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export class AvecApiClient {
   private session: Session;
 
@@ -59,6 +63,12 @@ export class AvecApiClient {
       }
 
       const body = (await response.json()) as { code: number; data: T };
+
+      // Deliberately gentle on Avec's production API: a fixed pause after every successful
+      // call, on top of low concurrency (see AGENDA/COMANDA/CLIENTE_CONCURRENCY in index.ts),
+      // to avoid bursts that could trip their rate limiting or add load to their system.
+      await sleep(config.requestDelayMs);
+
       return body.data;
     }
   }
