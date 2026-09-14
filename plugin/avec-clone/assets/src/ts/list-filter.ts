@@ -8,7 +8,10 @@
 export function initListFilters( root: ParentNode = document ): void {
 	root.querySelectorAll< HTMLUListElement >( '.avec-clone-list' ).forEach(
 		( list ) => {
-			if ( list.dataset.avecFilterAttached === 'true' ) {
+			if (
+				list.dataset.avecFilterAttached === 'true' ||
+				'avecNoInstantFilter' in list.dataset
+			) {
 				return;
 			}
 			list.dataset.avecFilterAttached = 'true';

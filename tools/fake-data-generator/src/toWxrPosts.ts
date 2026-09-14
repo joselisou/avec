@@ -55,6 +55,7 @@ export function toWxrPosts(dataset: FakeDataset): WxrPostLike[] {
           _avec_desconto: item.desconto,
           _avec_comissao: item.comissao,
           _avec_profissional_id: item.profissional_id,
+          _avec_status: item.status,
           _avec_comanda_source_id: item.comanda_id,
         },
         terms: [{ taxonomy: 'avec_recibo_tipo', name: item.tipo }],

@@ -129,7 +129,10 @@ export function generateFakeDataset(): FakeDataset {
         custo: 0,
         comissao: service.comissao,
         profissional_id: PROFESSIONAL_ID,
-        status: 1,
+        // Real repasses lag behind the service date, so a slice of recent items are
+        // still unpaid (status 0) — mirrors the "recibo" payment-status field seen in
+        // the real API's tab_items.
+        status: faker.number.int({ min: 0, max: 9 }) === 0 ? 0 : 1,
         datacad: `${isoDate} 10:00:00`,
       }));
 

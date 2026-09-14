@@ -41,6 +41,52 @@
 			border-bottom-color: v.$color-primary;
 		}
 	}
+
+	// Wraps the password input so the show/hide eye button can sit inside its
+	// right edge, matching the real login field.
+	.avec-clone-password-field {
+		position: relative;
+		margin-bottom: v.$space-md;
+
+		input {
+			width: 100%;
+			margin-bottom: 0;
+			padding-right: 48px;
+		}
+	}
+}
+
+.avec-clone-password-field__toggle {
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: v.$control-height;
+	width: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: none;
+	border: none;
+	padding: 0;
+	color: v.$color-neutral-main;
+	cursor: pointer;
+}
+
+.avec-clone-eye-icon {
+	width: 20px;
+	height: 20px;
+	fill: currentcolor;
+
+	&__slash {
+		stroke: currentcolor;
+		stroke-width: 60;
+		stroke-linecap: round;
+		opacity: 0;
+	}
+}
+
+.avec-clone-password-field__toggle.is-visible .avec-clone-eye-icon__slash {
+	opacity: 1;
 }
 
 .avec-clone-login__panel {

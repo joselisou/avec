@@ -1,0 +1,78 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+// Clientes header: the real app pairs a "Nome ▾ / Procurar Clientes: / Buscar"
+// search bar (same light-gray bar convention as the Comissões period filter)
+// with a circular "+" add-client button pinned to the top-right.
+.avec-clone-clientes-header {
+	display: flex;
+	align-items: flex-start;
+	gap: v.$space-sm;
+	background: v.$color-neutral-lighter;
+	margin: (-#{v.$space-md}) (-#{v.$space-md}) v.$space-md;
+	padding: v.$space-md;
+}
+
+.avec-clone-search {
+	flex: 1;
+	display: flex;
+	flex-wrap: wrap;
+	gap: v.$space-sm;
+}
+
+.avec-clone-search__field {
+	flex: 1 1 120px;
+
+	label {
+		display: block;
+		font-size: 0.75rem;
+		font-weight: 600;
+		margin-bottom: v.$space-xs;
+	}
+
+	select,
+	input {
+		width: 100%;
+		height: v.$control-height;
+		border: 1px solid v.$color-border;
+		border-radius: v.$control-radius;
+		padding: 0 v.$space-sm;
+		font-family: v.$font-text;
+		font-size: 1rem;
+		background: v.$color-surface;
+	}
+
+	&--text {
+		flex: 2 1 200px;
+	}
+}
+
+.avec-clone-search__submit {
+	align-self: flex-end;
+	flex: 1 1 120px;
+	margin-top: 0;
+
+	@include m.from-tablet {
+		flex: 0 0 auto;
+	}
+}
+
+.avec-clone-clientes-header__add {
+	flex: 0 0 auto;
+	width: v.$control-height;
+	height: v.$control-height;
+	border-radius: 50%;
+	border: none;
+	background: v.$color-primary;
+	color: v.$color-white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+
+	svg {
+		width: 24px;
+		height: 24px;
+		fill: currentcolor;
+	}
+}

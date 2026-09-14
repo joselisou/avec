@@ -12,6 +12,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 require AVEC_CLONE_DIR . 'templates/app-header.php';
 require AVEC_CLONE_DIR . 'templates/nav.php';
 
+$avec_valid_date = function ( $value, $fallback ) {
+	$value = is_string( $value ) ? $value : '';
+	return preg_match( '/^\\d{4}-\\d{2}-\\d{2}$/', $value ) ? $value : $fallback;
+};
+
+$avec_filter_inicio = $avec_valid_date(
+	isset( $_GET['inicio'] ) ? wp_unslash( $_GET['inicio'] ) : '', // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+	current_time( 'Y-m-01' )
+);
+$avec_filter_fim    = $avec_valid_date(
+	isset( $_GET['fim'] ) ? wp_unslash( $_GET['fim'] ) : '', // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+	current_time( 'Y-m-d' )
+);
+
 $comandas = get_posts(
 	array(
 		'post_type'      => 'avec_comanda',
@@ -19,10 +33,20 @@ $comandas = get_posts(
 		'orderby'        => 'meta_value',
 		'meta_key'       => '_avec_data',
 		'order'          => 'DESC',
+		'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+			array(
+				'key'     => '_avec_data',
+				'value'   => array( $avec_filter_inicio, $avec_filter_fim ),
+				'compare' => 'BETWEEN',
+				'type'    => 'DATE',
+			),
+		),
 	)
 );
 ?>
 <main class="avec-clone-section avec-clone-section--comandas">
+	<?php require AVEC_CLONE_DIR . 'templates/partials/period-filter.php'; ?>
+
 	<?php if ( ! $comandas ) : ?>
 		<p><?php esc_html_e( 'Nenhuma comanda importada ainda.', 'avec-clone' ); ?></p>
 	<?php else : ?>

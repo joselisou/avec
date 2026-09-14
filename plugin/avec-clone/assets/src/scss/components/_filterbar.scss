@@ -1,0 +1,71 @@
+@use "../abstracts/variables" as v;
+
+// Measured on the real Comissões filter header: a light-gray bar holding two
+// bordered date fields (each with a small calendar icon) and a wide primary
+// "Buscar" button.
+.avec-clone-filterbar {
+	background: v.$color-neutral-lighter;
+	margin: (-#{v.$space-md}) (-#{v.$space-md}) v.$space-md;
+	padding: v.$space-md;
+}
+
+.avec-clone-filterbar__row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: v.$space-sm;
+}
+
+.avec-clone-datepicker--field {
+	flex: 1 1 160px;
+}
+
+.avec-clone-datepicker__toggle--field {
+	width: 100%;
+	height: v.$control-height;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 v.$space-sm;
+	background: v.$color-surface;
+	border: 1px solid v.$color-border;
+	border-radius: v.$control-radius;
+	color: v.$color-primary;
+	cursor: pointer;
+
+	svg {
+		width: 18px;
+		height: 18px;
+		fill: currentcolor;
+	}
+}
+
+.avec-clone-datepicker__display {
+	color: v.$color-text;
+	font-family: v.$font-text;
+	font-size: 1rem;
+}
+
+.avec-clone-filterbar__submit {
+	flex: 1 1 160px;
+	margin-top: 0;
+}
+
+.avec-clone-filterbar__recibo {
+	display: flex;
+	align-items: center;
+	gap: v.$space-sm;
+	margin-top: v.$space-sm;
+	font-size: 0.875rem;
+
+	select {
+		flex: 1;
+		max-width: 320px;
+		height: v.$control-height;
+		border: 1px solid v.$color-border;
+		border-radius: v.$control-radius;
+		padding: 0 v.$space-sm;
+		font-family: v.$font-text;
+		font-size: 1rem;
+		background: v.$color-surface;
+	}
+}
