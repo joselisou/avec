@@ -117,6 +117,10 @@ function renderCalendar(
 	panel.appendChild( grid );
 }
 
+// Tracks whichever `.avec-clone-datepicker__panel` is currently open, across every picker on
+// the page, so opening one always closes any other that was left open.
+let openPanel: HTMLElement | null = null;
+
 /**
  * Wires up every `[data-avec-datepicker]` toggle button to open a custom month-grid calendar.
  * With a `data-target` attribute, picking a day fills that hidden input + the picker's own
@@ -167,6 +171,9 @@ export function initDatePickers( root: ParentNode = document ): void {
 			toggle.addEventListener( 'click', ( event ) => {
 				event.stopPropagation();
 				const isHidden = panel.hasAttribute( 'hidden' );
+				if ( openPanel && openPanel !== panel ) {
+					openPanel.setAttribute( 'hidden', '' );
+				}
 				if ( isHidden ) {
 					const [ year, month ] = selectedIso
 						.split( '-' )
@@ -178,15 +185,25 @@ export function initDatePickers( root: ParentNode = document ): void {
 						selectedIso,
 						onPick
 					);
+					// `position: fixed`, so this is relative to the viewport — no
+					// scroll offset added.
+					panel.style.top = `${
+						toggle.getBoundingClientRect().bottom
+					}px`;
 					panel.removeAttribute( 'hidden' );
+					openPanel = panel;
 				} else {
 					panel.setAttribute( 'hidden', '' );
+					openPanel = null;
 				}
 			} );
 
 			document.addEventListener( 'click', ( event ) => {
 				if ( ! container.contains( event.target as Node ) ) {
 					panel.setAttribute( 'hidden', '' );
+					if ( openPanel === panel ) {
+						openPanel = null;
+					}
 				}
 			} );
 		}

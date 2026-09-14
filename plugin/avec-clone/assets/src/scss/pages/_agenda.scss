@@ -42,17 +42,21 @@ $row-height: 44px;
 	}
 }
 
+// Full viewport width — set via `left`/`width` (not `inset-inline`, for wider
+// browser support) so it always reaches both edges regardless of which field
+// opened it; `top` is set inline by date-picker.ts from the toggle's own
+// position, since a fixed-position panel can't rely on the field's own box
+// for offset the way an absolutely-positioned one could.
 .avec-clone-datepicker__panel {
-	position: absolute;
-	right: 0;
-	top: calc(100% + #{v.$space-xs});
-	z-index: 5;
+	position: fixed;
+	left: 0;
+	width: 100vw;
+	z-index: 50;
 	background: v.$color-surface;
 	border: 1px solid v.$color-border;
 	border-radius: v.$control-radius;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 	padding: v.$space-sm;
-	width: 280px;
 
 	&[hidden] {
 		display: none;

@@ -48,3 +48,13 @@ $space-lg: 24px;
 // Measured on the real login form: 48px-tall inputs/buttons, 8px button radius.
 $control-height: 48px;
 $control-radius: 8px;
+
+// Measured on the real Comissões/Comandas/Clientes report & search bars (an
+// older, denser UI family than Login's — smaller radius, shorter controls,
+// bold accent purple that differs from $color-primary).
+$color-filterbar-border: #e2e0de;
+$color-filterbar-bg: #fafafa;
+$color-filterbar-accent: #5248dd;
+$filterbar-control-height: 40px;
+$filterbar-control-radius: 2px;
+$filterbar-btn-radius: 4px;

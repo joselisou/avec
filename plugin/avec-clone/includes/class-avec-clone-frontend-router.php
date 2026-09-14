@@ -30,6 +30,17 @@ class Avec_Clone_Frontend_Router {
 		'vale-rapido' => 'vale-rapido.php',
 	);
 
+	/**
+	 * Sub-routes nested under a section — real path segments (not shown in the drawer nav) that
+	 * still resolve to a template under templates/sections/. Currently just Comissões' own
+	 * "Serviços" screen, which the real app opens as a separate page rather than expanding inline.
+	 *
+	 * @var array<string, string>
+	 */
+	const SUB_ROUTES = array(
+		'comissoes/servicos' => 'comissoes-servicos.php',
+	);
+
 	const DEFAULT_SECTION = 'agenda';
 
 	/**
@@ -46,6 +57,13 @@ class Avec_Clone_Frontend_Router {
 	 * Registers the rewrite rules for `/minha-conta/` and `/minha-conta/{section}/`.
 	 */
 	public static function register_endpoints() {
+		foreach ( array_keys( self::SUB_ROUTES ) as $sub_route ) {
+			add_rewrite_rule(
+				'^' . self::BASE_SLUG . '/' . $sub_route . '/?$',
+				'index.php?avec_account=1&avec_account_section=' . $sub_route,
+				'top'
+			);
+		}
 		add_rewrite_rule(
 			'^' . self::BASE_SLUG . '/([^/]+)/?$',
 			'index.php?avec_account=1&avec_account_section=$matches[1]',
@@ -104,7 +122,12 @@ class Avec_Clone_Frontend_Router {
 			return AVEC_CLONE_DIR . 'templates/login.php';
 		}
 
-		$section                               = get_query_var( 'avec_account_section' );
+		$section = get_query_var( 'avec_account_section' );
+
+		if ( isset( self::SUB_ROUTES[ $section ] ) ) {
+			return AVEC_CLONE_DIR . 'templates/sections/' . self::SUB_ROUTES[ $section ];
+		}
+
 		$section_file                          = isset( self::SECTIONS[ $section ] ) ? self::SECTIONS[ $section ] : self::SECTIONS[ self::DEFAULT_SECTION ];
 		$GLOBALS['avec_clone_current_section'] = isset( self::SECTIONS[ $section ] ) ? $section : self::DEFAULT_SECTION;
 
@@ -119,5 +142,15 @@ class Avec_Clone_Frontend_Router {
 	 */
 	public static function url_for( $section ) {
 		return home_url( '/' . self::BASE_SLUG . '/' . $section . '/' );
+	}
+
+	/**
+	 * Builds the front-end URL for a sub-route, e.g. `home_url('/minha-conta/comissoes/servicos/')`.
+	 *
+	 * @param string $sub_route One of the {@see self::SUB_ROUTES} keys.
+	 * @return string
+	 */
+	public static function url_for_sub_route( $sub_route ) {
+		return home_url( '/' . self::BASE_SLUG . '/' . $sub_route . '/' );
 	}
 }

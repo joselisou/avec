@@ -38,6 +38,9 @@ $labels          = array(
 	'vale-rapido' => __( 'Vale Rápido', 'avec-clone' ),
 );
 $current_user    = wp_get_current_user();
+// Section templates may set this before requiring nav.php to put a page-specific action
+// (e.g. Clientes' "+" add button) at the topbar's right edge, matching the real app.
+$topbar_action = isset( $GLOBALS['avec_clone_topbar_action'] ) ? $GLOBALS['avec_clone_topbar_action'] : '';
 ?>
 <div class="avec-clone-topbar">
 	<button type="button" class="avec-clone-hamburger" aria-label="<?php esc_attr_e( 'Abrir menu', 'avec-clone' ); ?>" aria-expanded="false" aria-controls="avec-clone-nav">
@@ -53,6 +56,10 @@ $current_user    = wp_get_current_user();
 			<?php echo esc_html( isset( $labels[ $current_section ] ) ? $labels[ $current_section ] : '' ); ?>
 		</span>
 	<?php endif; ?>
+
+	<span class="avec-clone-topbar__action">
+		<?php echo $topbar_action; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- pre-rendered by the caller, already escaped there. ?>
+	</span>
 </div>
 
 <div class="avec-clone-nav-overlay" hidden></div>

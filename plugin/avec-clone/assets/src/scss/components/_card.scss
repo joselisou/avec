@@ -26,6 +26,14 @@
 	}
 }
 
+// The per-service line-item detail on the Serviços screen (each field on
+// its own line, rather than the usual title+meta-inline row).
+.avec-clone-card--servico {
+	flex-direction: column;
+	align-items: flex-start;
+	gap: v.$space-xs;
+}
+
 .avec-clone-card__avatar {
 	flex: 0 0 auto;
 	width: 40px;

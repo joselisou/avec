@@ -2,7 +2,10 @@
 /**
  * Shared date-range filter bar (start date, end date, "Buscar") used by Comandas and Comissões,
  * matching the real app's own filter header. Expects the including template to have already set
- * `$avec_filter_inicio` and `$avec_filter_fim` ("YYYY-MM-DD" strings).
+ * `$avec_filter_inicio` and `$avec_filter_fim` ("YYYY-MM-DD" strings). If the including template
+ * also sets `$avec_filter_extra_html` (a pre-rendered, already-escaped HTML string), it is
+ * rendered inside the same gray bar, below the date row — e.g. Comissões' "Filtrar por recibo"
+ * select, which the real app keeps in the same bar as the date filter.
  *
  * @package AvecClone
  */
@@ -32,4 +35,7 @@ $avec_period_fields = array(
 		<?php endforeach; ?>
 		<button type="submit" class="avec-clone-btn avec-clone-btn--primary avec-clone-filterbar__submit"><?php esc_html_e( 'Buscar', 'avec-clone' ); ?></button>
 	</form>
+	<?php if ( ! empty( $avec_filter_extra_html ) ) : ?>
+		<?php echo $avec_filter_extra_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- pre-rendered by the caller, already escaped there. ?>
+	<?php endif; ?>
 </div>

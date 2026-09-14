@@ -179,7 +179,10 @@
 	text-align: center;
 	text-decoration: none;
 	cursor: pointer;
-	margin-top: v.$space-sm;
+
+	& + & {
+		margin-top: v.$space-sm;
+	}
 
 	&--primary {
 		background: v.$color-primary;

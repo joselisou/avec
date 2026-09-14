@@ -23,14 +23,23 @@ $topbar-height: 56px;
 	text-align: center;
 	font-weight: 600;
 	color: v.$color-neutral-darker;
-	margin-right: 32px; // Balances the hamburger's width so the title stays centered.
 
 	&--selector {
 		color: v.$color-text;
 	}
 }
 
+// Reserves the same width as the hamburger on the opposite edge, so the
+// title stays centered whether or not a section sets a real action (e.g.
+// Clientes' "+" add button) into it.
+.avec-clone-topbar__action {
+	flex: 0 0 32px;
+	display: flex;
+	justify-content: flex-end;
+}
+
 .avec-clone-hamburger {
+	flex: 0 0 32px;
 	width: 32px;
 	height: 32px;
 	padding: 0;
@@ -47,6 +56,24 @@ $topbar-height: 56px;
 		height: 2px;
 		background: v.$color-primary;
 		border-radius: 1px;
+	}
+}
+
+// Topbar variant for sub-route screens (e.g. Comissões' "Serviços" detail)
+// that the real app opens as their own page with a back arrow instead of
+// the hamburger/drawer.
+.avec-clone-back-arrow {
+	flex: 0 0 32px;
+	width: 32px;
+	height: 32px;
+	display: flex;
+	align-items: center;
+	color: v.$color-primary;
+
+	svg {
+		width: 20px;
+		height: 20px;
+		fill: currentcolor;
 	}
 }
 
@@ -140,9 +167,12 @@ $topbar-height: 56px;
 	}
 }
 
+// Measured on the real app: nav icons are always primary-purple, whether or
+// not their item is the current section — only the label text/weight
+// changes on the active item, per `.is-active a` above.
 .avec-clone-nav__icon {
 	width: 20px;
 	height: 20px;
 	flex: none;
-	fill: currentcolor;
+	fill: v.$color-primary;
 }
