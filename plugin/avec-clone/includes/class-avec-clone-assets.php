@@ -38,7 +38,16 @@ class Avec_Clone_Assets {
 
 		$asset = require $asset_file;
 
-		wp_enqueue_style( 'avec-clone', AVEC_CLONE_URL . 'assets/build/style-index.css', array(), $asset['version'] );
+		// The design tokens (see assets/src/scss/abstracts/_variables.scss) were measured from
+		// the real Avec Pro app, which uses Inter for UI text and Raleway for headings — neither
+		// is bundled with WordPress, so both are pulled from Google Fonts.
+		wp_enqueue_style(
+			'avec-clone-fonts',
+			'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Raleway:wght@600;700&display=swap',
+			array(),
+			null // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- external URL, Google's own cache-busting applies.
+		);
+		wp_enqueue_style( 'avec-clone', AVEC_CLONE_URL . 'assets/build/style-index.css', array( 'avec-clone-fonts' ), $asset['version'] );
 		wp_enqueue_script( 'avec-clone', AVEC_CLONE_URL . 'assets/build/index.js', $asset['dependencies'], $asset['version'], true );
 	}
 }

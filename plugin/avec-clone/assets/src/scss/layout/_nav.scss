@@ -14,6 +14,8 @@
 	border-top: 1px solid v.$color-border;
 
 	@include m.from-tablet {
+		display: flex;
+		flex-direction: column;
 		inset-inline: auto;
 		inset-block: 0;
 		left: 0;
@@ -21,6 +23,40 @@
 		border-top: none;
 		border-right: 1px solid v.$color-border;
 	}
+}
+
+// User greeting and sign-out — part of the sidebar on desktop, hidden on the
+// mobile bottom tab bar (there's no room, and the real app doesn't show them
+// there either).
+.avec-clone-nav__user,
+.avec-clone-nav__logout {
+	display: none;
+
+	@include m.from-tablet {
+		display: flex;
+		align-items: center;
+		gap: v.$space-sm;
+		padding: v.$space-md;
+	}
+}
+
+.avec-clone-nav__user {
+
+	img {
+		border-radius: 50%;
+	}
+}
+
+.avec-clone-nav__greeting {
+	font-weight: 600;
+	font-size: 0.875rem;
+}
+
+.avec-clone-nav__logout {
+	margin-top: auto;
+	color: v.$color-neutral-dark;
+	text-decoration: none;
+	border-top: 1px solid v.$color-border;
 }
 
 .avec-clone-nav__list {

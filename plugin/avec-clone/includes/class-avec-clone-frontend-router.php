@@ -38,6 +38,7 @@ class Avec_Clone_Frontend_Router {
 	public static function init() {
 		add_action( 'init', array( __CLASS__, 'register_endpoints' ) );
 		add_filter( 'query_vars', array( __CLASS__, 'register_query_vars' ) );
+		add_filter( 'show_admin_bar', array( __CLASS__, 'hide_admin_bar_on_our_routes' ) );
 		add_filter( 'template_include', array( __CLASS__, 'maybe_render' ) );
 	}
 
@@ -67,6 +68,24 @@ class Avec_Clone_Frontend_Router {
 		$vars[] = 'avec_account';
 		$vars[] = 'avec_account_section';
 		return $vars;
+	}
+
+	/**
+	 * Hides the wp-admin toolbar on our routes — the real Avec Pro app is full-screen with no
+	 * host-site chrome, and the query vars this decision would otherwise rely on aren't parsed
+	 * yet this early, so the request URI is checked directly instead.
+	 *
+	 * @param bool $show Whether WordPress currently intends to show the admin bar.
+	 * @return bool
+	 */
+	public static function hide_admin_bar_on_our_routes( $show ) {
+		$path = isset( $_SERVER['REQUEST_URI'] ) ? wp_parse_url( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ), PHP_URL_PATH ) : '';
+
+		if ( $path && 0 === strpos( $path, '/' . self::BASE_SLUG ) ) {
+			return false;
+		}
+
+		return $show;
 	}
 
 	/**

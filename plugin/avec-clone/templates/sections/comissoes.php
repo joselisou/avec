@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-get_header();
+require AVEC_CLONE_DIR . 'templates/app-header.php';
 require AVEC_CLONE_DIR . 'templates/nav.php';
 
 $recibos = get_posts(
@@ -60,4 +60,4 @@ foreach ( $recibos as $post ) {
 	<?php endif; ?>
 </main>
 <?php
-get_footer();
+require AVEC_CLONE_DIR . 'templates/app-footer.php';

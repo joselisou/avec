@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-get_header();
+require AVEC_CLONE_DIR . 'templates/app-header.php';
 require AVEC_CLONE_DIR . 'templates/nav.php';
 
 $comandas = get_posts(
@@ -44,4 +44,4 @@ $comandas = get_posts(
 	<?php endif; ?>
 </main>
 <?php
-get_footer();
+require AVEC_CLONE_DIR . 'templates/app-footer.php';

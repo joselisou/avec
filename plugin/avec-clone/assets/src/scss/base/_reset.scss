@@ -4,10 +4,18 @@
 .avec-clone-section,
 .avec-clone-nav {
 	box-sizing: border-box;
+	font-family: v.$font-text;
+	color: v.$color-text;
 
 	*,
 	*::before,
 	*::after {
 		box-sizing: inherit;
+	}
+
+	h1,
+	h2,
+	h3 {
+		font-family: v.$font-display;
 	}
 }
