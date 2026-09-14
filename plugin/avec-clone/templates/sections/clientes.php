@@ -25,8 +25,6 @@ $clientes = get_posts(
 $avatar_icon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-4.4 0-9 2.2-9 5v3h18v-3c0-2.8-4.6-5-9-5Z"/></svg>';
 ?>
 <main class="avec-clone-section avec-clone-section--clientes">
-	<h1><?php esc_html_e( 'Clientes', 'avec-clone' ); ?></h1>
-
 	<?php if ( ! $clientes ) : ?>
 		<p><?php esc_html_e( 'Nenhum cliente importado ainda.', 'avec-clone' ); ?></p>
 	<?php else : ?>

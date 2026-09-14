@@ -75,9 +75,17 @@ $grid_height = $total_rows * AVEC_CLONE_AGENDA_ROW_HEIGHT;
 <main class="avec-clone-section avec-clone-section--agenda">
 	<div class="avec-clone-agenda__header">
 		<span class="avec-clone-agenda__date-label"><?php echo esc_html( "{$dia_semana_pt} - {$data_formatada}" ); ?></span>
-		<form method="get" class="avec-clone-agenda__date-picker">
-			<input type="date" name="data" value="<?php echo esc_attr( $selected_date ); ?>" onchange="this.form.submit()" aria-label="<?php esc_attr_e( 'Escolher data', 'avec-clone' ); ?>" />
-		</form>
+		<div class="avec-clone-datepicker" data-avec-datepicker data-date="<?php echo esc_attr( $selected_date ); ?>" data-base-url="<?php echo esc_url( Avec_Clone_Frontend_Router::url_for( 'agenda' ) ); ?>">
+			<button type="button" class="avec-clone-datepicker__toggle" aria-label="<?php esc_attr_e( 'Escolher data', 'avec-clone' ); ?>">
+				<svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M960 95.888 703.776 95.889V32.113c0-17.68-14.32-32-32-32s-32 14.32-32 32v63.76h-256v-63.76c0-17.68-14.32-32-32-32s-32 14.32-32 32v63.76H64c-35.344 0-64 28.656-64 64v800c0 35.343 28.656 64 64 64h896c35.344 0 64-28.657 64-64v-800c0-35.329-28.656-63.985-64-63.985m0 863.985H64v-800h255.776v32.24c0 17.679 14.32 32 32 32s32-14.321 32-32v-32.224h256v32.24c0 17.68 14.32 32 32 32s32-14.32 32-32v-32.24H960zM736 511.888h64c17.664 0 32-14.336 32-32v-64c0-17.664-14.336-32-32-32h-64c-17.664 0-32 14.336-32 32v64c0 17.664 14.336 32 32 32m0 255.984h64c17.664 0 32-14.32 32-32v-64c0-17.664-14.336-32-32-32h-64c-17.664 0-32 14.336-32 32v64c0 17.696 14.336 32 32 32m-192-128h-64c-17.664 0-32 14.336-32 32v64c0 17.68 14.336 32 32 32h64c17.664 0 32-14.32 32-32v-64c0-17.648-14.336-32-32-32m0-255.984h-64c-17.664 0-32 14.336-32 32v64c0 17.664 14.336 32 32 32h64c17.664 0 32-14.336 32-32v-64c0-17.68-14.336-32-32-32m-256 0h-64c-17.664 0-32 14.336-32 32v64c0 17.664 14.336 32 32 32h64c17.664 0 32-14.336 32-32v-64c0-17.68-14.336-32-32-32m0 255.984h-64c-17.664 0-32 14.336-32 32v64c0 17.68 14.336 32 32 32h64c17.664 0 32-14.32 32-32v-64c0-17.648-14.336-32-32-32"/></svg>
+			</button>
+			<div class="avec-clone-datepicker__panel" hidden></div>
+			<noscript>
+				<form method="get">
+					<input type="date" name="data" value="<?php echo esc_attr( $selected_date ); ?>" onchange="this.form.submit()" />
+				</form>
+			</noscript>
+		</div>
 	</div>
 
 	<div class="avec-clone-agenda__grid" style="height: <?php echo (int) $grid_height; ?>px;">

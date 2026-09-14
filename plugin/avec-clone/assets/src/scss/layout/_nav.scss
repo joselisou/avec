@@ -1,96 +1,148 @@
 @use "../abstracts/variables" as v;
-@use "../abstracts/mixins" as m;
 
-// Mobile-first: a fixed bottom tab bar. From the tablet breakpoint up it
-// becomes a fixed left-hand sidebar instead — no wrapping container needed,
-// since `.avec-clone-section` (the sibling `<main>`) reserves space for
-// whichever layout is active via padding/margin below.
-.avec-clone-nav {
+$topbar-height: 56px;
+
+// The real Avec Pro app uses a hamburger/off-canvas nav at every breakpoint,
+// not just mobile — a fixed top bar with a hamburger button, and the nav
+// itself is a drawer that slides in over the content when toggled.
+.avec-clone-topbar {
 	position: fixed;
 	inset-inline: 0;
-	bottom: 0;
-	z-index: 10;
+	top: 0;
+	height: $topbar-height;
+	z-index: 20;
 	background: v.$color-surface;
-	border-top: 1px solid v.$color-border;
+	border-bottom: 1px solid v.$color-border;
+	display: flex;
+	align-items: center;
+	padding: 0 v.$space-md;
+}
 
-	@include m.from-tablet {
-		display: flex;
-		flex-direction: column;
-		inset-inline: auto;
-		inset-block: 0;
-		left: 0;
-		width: 220px;
-		border-top: none;
-		border-right: 1px solid v.$color-border;
+.avec-clone-topbar__title {
+	flex: 1;
+	text-align: center;
+	font-weight: 600;
+	color: v.$color-neutral-darker;
+	margin-right: 32px; // Balances the hamburger's width so the title stays centered.
+
+	&--selector {
+		color: v.$color-text;
 	}
 }
 
-// User greeting and sign-out — part of the sidebar on desktop, hidden on the
-// mobile bottom tab bar (there's no room, and the real app doesn't show them
-// there either).
-.avec-clone-nav__user,
-.avec-clone-nav__logout {
-	display: none;
+.avec-clone-hamburger {
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	background: none;
+	border: none;
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 5px;
 
-	@include m.from-tablet {
-		display: flex;
-		align-items: center;
-		gap: v.$space-sm;
-		padding: v.$space-md;
+	span {
+		display: block;
+		height: 2px;
+		background: v.$color-primary;
+		border-radius: 1px;
+	}
+}
+
+.avec-clone-nav-overlay {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.4);
+	z-index: 19;
+
+	&[hidden] {
+		display: none;
+	}
+}
+
+.avec-clone-nav {
+	position: fixed;
+	inset-block: 0;
+	left: 0;
+	width: 280px;
+	max-width: 85vw;
+	z-index: 20;
+	background: v.$color-surface;
+	border-right: 1px solid v.$color-border;
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
+	transform: translateX(-100%);
+	transition: transform 0.25s ease;
+
+	&.is-open {
+		transform: translateX(0);
 	}
 }
 
 .avec-clone-nav__user {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	gap: v.$space-xs;
+	padding: v.$space-lg v.$space-md;
+	border-bottom: 1px solid v.$color-border;
 
 	img {
+		width: 72px;
+		height: 72px;
 		border-radius: 50%;
 	}
 }
 
 .avec-clone-nav__greeting {
 	font-weight: 600;
-	font-size: 0.875rem;
 }
 
-.avec-clone-nav__logout {
-	margin-top: auto;
-	color: v.$color-neutral-dark;
+.avec-clone-nav__edit-profile {
+	display: inline-flex;
+	align-items: center;
+	gap: v.$space-xs;
+	color: v.$color-primary;
 	text-decoration: none;
-	border-top: 1px solid v.$color-border;
-}
+	font-size: 0.875rem;
 
-.avec-clone-nav__list {
-	display: flex;
-	margin: 0;
-	padding: 0;
-	list-style: none;
-
-	@include m.from-tablet {
-		flex-direction: column;
-		padding-top: v.$space-lg;
+	svg {
+		width: 14px;
+		height: 14px;
+		fill: currentcolor;
 	}
 }
 
+.avec-clone-nav__list {
+	margin: 0;
+	padding: v.$space-sm 0;
+	list-style: none;
+}
+
 .avec-clone-nav__item {
-	flex: 1;
-	text-align: center;
 
 	a {
-		display: block;
-		padding: v.$space-sm v.$space-xs;
+		display: flex;
+		align-items: center;
+		gap: v.$space-sm;
+		padding: v.$space-sm v.$space-md;
 		color: v.$color-muted;
 		text-decoration: none;
-		font-size: 0.8rem;
-
-		@include m.from-tablet {
-			text-align: left;
-			padding: v.$space-sm v.$space-md;
-			font-size: 1rem;
-		}
+		font-size: 1rem;
 	}
 
 	&.is-active a {
 		color: v.$color-primary;
 		font-weight: 600;
 	}
+}
+
+.avec-clone-nav__icon {
+	width: 20px;
+	height: 20px;
+	flex: none;
+	fill: currentcolor;
 }

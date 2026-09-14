@@ -31,6 +31,7 @@ require_once AVEC_CLONE_DIR . 'includes/class-avec-clone-cli-commands.php';
 require_once AVEC_CLONE_DIR . 'includes/class-avec-clone-auth-gate.php';
 require_once AVEC_CLONE_DIR . 'includes/class-avec-clone-frontend-router.php';
 require_once AVEC_CLONE_DIR . 'includes/class-avec-clone-assets.php';
+require_once AVEC_CLONE_DIR . 'includes/class-avec-clone-formatting.php';
 
 /**
  * Boots every plugin subsystem. Kept as plain function calls (no container/DI) since the plugin

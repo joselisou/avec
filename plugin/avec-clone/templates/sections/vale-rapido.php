@@ -23,8 +23,6 @@ $vales = get_posts(
 );
 ?>
 <main class="avec-clone-section avec-clone-section--vale-rapido">
-	<h1><?php esc_html_e( 'Vale Rápido', 'avec-clone' ); ?></h1>
-
 	<?php if ( ! $vales ) : ?>
 		<p><?php esc_html_e( 'Esta funcionalidade ainda não está ativa na conta de origem — não há dados para mostrar.', 'avec-clone' ); ?></p>
 	<?php else : ?>
@@ -32,7 +30,7 @@ $vales = get_posts(
 			<?php foreach ( $vales as $post ) : ?>
 				<li class="avec-clone-card">
 					<span class="avec-clone-card__title"><?php echo esc_html( $post->post_title ); ?></span>
-					<span class="avec-clone-card__value"><?php echo esc_html( number_format_i18n( (float) get_post_meta( $post->ID, '_avec_valor', true ), 2 ) ); ?></span>
+					<span class="avec-clone-card__value"><?php echo esc_html( Avec_Clone_Formatting::money( get_post_meta( $post->ID, '_avec_valor', true ) ) ); ?></span>
 				</li>
 			<?php endforeach; ?>
 		</ul>

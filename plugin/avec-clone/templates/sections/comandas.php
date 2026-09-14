@@ -23,8 +23,6 @@ $comandas = get_posts(
 );
 ?>
 <main class="avec-clone-section avec-clone-section--comandas">
-	<h1><?php esc_html_e( 'Comandas', 'avec-clone' ); ?></h1>
-
 	<?php if ( ! $comandas ) : ?>
 		<p><?php esc_html_e( 'Nenhuma comanda importada ainda.', 'avec-clone' ); ?></p>
 	<?php else : ?>
@@ -37,7 +35,7 @@ $comandas = get_posts(
 				<li class="avec-clone-card">
 					<span class="avec-clone-card__date"><?php echo esc_html( get_post_meta( $post->ID, '_avec_data', true ) ); ?></span>
 					<span class="avec-clone-card__title"><?php echo esc_html( $post->post_title ); ?> — <?php echo esc_html( $cliente_nome ); ?></span>
-					<span class="avec-clone-card__value"><?php echo esc_html( number_format_i18n( (float) get_post_meta( $post->ID, '_avec_total', true ), 2 ) ); ?></span>
+					<span class="avec-clone-card__value"><?php echo esc_html( Avec_Clone_Formatting::money( get_post_meta( $post->ID, '_avec_total', true ) ) ); ?></span>
 				</li>
 			<?php endforeach; ?>
 		</ul>
