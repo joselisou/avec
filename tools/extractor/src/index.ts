@@ -53,8 +53,17 @@ function parseArgs(argv: string[]): CliOptions {
   };
 }
 
+function formatDuration(ms: number): string {
+  const totalSeconds = Math.round(ms / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes}m ${seconds}s`;
+}
+
 async function main(): Promise<void> {
+  const startedAt = new Date();
   const { from, to, force } = parseArgs(process.argv.slice(2));
+  console.log(`Started at ${startedAt.toLocaleString()}`);
   console.log(`Extracting source data from ${from} to ${to} (force=${force})`);
 
   const client = await TanbiutiApiClient.create();
@@ -133,8 +142,11 @@ async function main(): Promise<void> {
   await writeJson(path.join(dataRoot, 'normalized', 'comandas.json'), comandas);
   await writeJson(path.join(dataRoot, 'normalized', 'clientes.json'), clientes);
 
+  const finishedAt = new Date();
+
   await writeJson(path.join(dataRoot, 'extraction-summary.json'), {
-    extractedAt: new Date().toISOString(),
+    startedAt: startedAt.toISOString(),
+    finishedAt: finishedAt.toISOString(),
     range: { from, to },
     counts: {
       days: dates.length,
@@ -144,7 +156,10 @@ async function main(): Promise<void> {
     },
   });
 
-  console.log('Done. See data/real/extraction-summary.json for counts.');
+  console.log(
+    `Finished at ${finishedAt.toLocaleString()} (took ${formatDuration(finishedAt.getTime() - startedAt.getTime())}).`,
+  );
+  console.log('See data/real/extraction-summary.json for counts.');
 }
 
 main().catch((error) => {
