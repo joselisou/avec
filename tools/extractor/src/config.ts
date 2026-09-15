@@ -15,11 +15,11 @@ function requireEnv(name: string): string {
 }
 
 export const config = {
-  loginUrl: requireEnv('AVEC_LOGIN_URL'),
-  email: requireEnv('AVEC_EMAIL'),
-  password: requireEnv('AVEC_PASSWORD'),
+  loginUrl: requireEnv('SOURCE_LOGIN_URL'),
+  email: requireEnv('SOURCE_EMAIL'),
+  password: requireEnv('SOURCE_PASSWORD'),
   apiBaseUrl: 'https://api.avec.beauty',
   extractionStartDate: '2025-07-19',
-  /** Fixed pause after every successful API call, to spread load gently on Avec's production API. */
+  /** Fixed pause after every successful API call, to spread load gently on the source system's production API. */
   requestDelayMs: 400,
 };

@@ -1,4 +1,4 @@
-import type { AvecApiClient } from '../client.js';
+import type { TanbiutiApiClient } from '../client.js';
 
 export interface Booking {
   id: number;
@@ -28,7 +28,7 @@ interface AgendaDayResponse {
 
 /** Fetches a single day of the professional's agenda, including historical dates. */
 export async function fetchAgendaDay(
-  client: AvecApiClient,
+  client: TanbiutiApiClient,
   isoDate: string,
 ): Promise<AgendaDayResponse> {
   return client.get<AgendaDayResponse>(

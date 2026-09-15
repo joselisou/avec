@@ -7,16 +7,16 @@ function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export class AvecApiClient {
+export class TanbiutiApiClient {
   private session: Session;
 
   private constructor(session: Session) {
     this.session = session;
   }
 
-  static async create(): Promise<AvecApiClient> {
+  static async create(): Promise<TanbiutiApiClient> {
     const session = await login();
-    return new AvecApiClient(session);
+    return new TanbiutiApiClient(session);
   }
 
   get salonId(): string {
@@ -27,7 +27,7 @@ export class AvecApiClient {
     return this.session.professionalId;
   }
 
-  /** GET `path` under the Avec API, decoded as JSON. Retries on 5xx/429 and re-logs in once on 401. */
+  /** GET `path` under the source API, decoded as JSON. Retries on 5xx/429 and re-logs in once on 401. */
   async get<T>(path: string, searchParams?: Record<string, string>): Promise<T> {
     const url = new URL(path, config.apiBaseUrl);
     for (const [key, value] of Object.entries(searchParams ?? {})) {
@@ -64,7 +64,7 @@ export class AvecApiClient {
 
       const body = (await response.json()) as { code: number; data: T };
 
-      // Deliberately gentle on Avec's production API: a fixed pause after every successful
+      // Deliberately gentle on the source system's production API: a fixed pause after every successful
       // call, on top of low concurrency (see AGENDA/COMANDA/CLIENTE_CONCURRENCY in index.ts),
       // to avoid bursts that could trip their rate limiting or add load to their system.
       await sleep(config.requestDelayMs);

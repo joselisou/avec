@@ -4,7 +4,7 @@ export interface WxrTerm {
 }
 
 export interface WxrPost {
-  /** Registered WordPress post type slug, e.g. "avec_comanda". */
+  /** Registered WordPress post type slug, e.g. "tanbiuti_comanda". */
   postType: string;
   title: string;
   /** "YYYY-MM-DD HH:mm:ss" in site local time. */
@@ -112,7 +112,7 @@ export function buildWxr(posts: WxrPost[], options: WxrOptions): string {
 <channel>
   <title>${cdata(options.siteTitle)}</title>
   <link>${xmlEscape(options.siteUrl)}</link>
-  <description>${cdata('Avec Clone data export')}</description>
+  <description>${cdata('Tanbiuti data export')}</description>
   <pubDate>${CHANNEL_PUB_DATE}</pubDate>
   <language>pt-BR</language>
   <wp:wxr_version>1.2</wp:wxr_version>

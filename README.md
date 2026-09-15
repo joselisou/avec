@@ -1,43 +1,44 @@
-# Avec Clone
+# Tanbiuti
 
-Clona os dados e a UI funcional do painel [Avec Pro](https://terminal.avec.beauty) (Agenda,
-Comandas, Comissões, Clientes) em um site WordPress, para permitir montar um BI em cima desses
-dados — algo que o Avec não oferece nativamente.
+Clona os dados e a UI funcional de um painel de gestão de salão (Agenda, Comandas, Comissões,
+Clientes) em um site WordPress, para permitir montar um BI em cima desses dados — algo que o
+sistema de origem não oferece nativamente.
 
 O projeto tem duas partes:
 
-1. **`tools/`** (Node.js/TypeScript) — extrai os dados reais do Avec, e gera os arquivos WXR
-   (formato de import/export do WordPress) usados pelo plugin.
-2. **`plugin/avec-clone/`** (PHP + WordPress) — registra os Custom Post Types, importa o WXR, e
+1. **`tools/`** (Node.js/TypeScript) — extrai os dados reais do sistema de origem, e gera os
+   arquivos WXR (formato de import/export do WordPress) usados pelo plugin.
+2. **`plugin/tanbiuti/`** (PHP + WordPress) — registra os Custom Post Types, importa o WXR, e
    expõe os dados numa área logada (`/minha-conta/`) mobile-first, além do admin nativo do WP.
 
-Veja `docs/api-reconnaissance.md` para o mapeamento da API do Avec, e o histórico da conversa que
-gerou este projeto para o contexto completo das decisões de escopo/privacidade.
+Veja `docs/api-reconnaissance.md` para o mapeamento da API do sistema de origem, e o histórico da
+conversa que gerou este projeto para o contexto completo das decisões de escopo/privacidade.
 
 ## Pré-requisitos
 
 - Node.js 20+ e npm
 - PHP 7.4+ e [Composer](https://getcomposer.org)
 - [Docker](https://www.docker.com) rodando (necessário para os testes de integração do plugin via `wp-env`)
-- `.env` na raiz do repo com as credenciais do Avec (copie de `.env.example`):
+- `.env` na raiz do repo com as credenciais do sistema de origem (copie de `.env.example`):
   ```
-  AVEC_LOGIN_URL=https://terminal.avec.beauty/login/<slug-do-salao>
-  AVEC_EMAIL=...
-  AVEC_PASSWORD=...
+  SOURCE_LOGIN_URL=https://<url-do-sistema>/login/<slug-do-salao>
+  SOURCE_EMAIL=...
+  SOURCE_PASSWORD=...
   ```
 
 ## ⚠️ Privacidade e segurança
 
 - **`data/real/`** (saída do extractor) é **inteiramente ignorado pelo git** — nunca commite nem
   dê push nesse conteúdo. Só `data/fake/` (dataset sintético) é versionado.
-- O repositório GitHub (`joselisou/avec`) deve ficar **privado** sempre que houver qualquer chance
-  de dados reais estarem no histórico. Alternar visibilidade: `gh repo edit joselisou/avec --visibility public|private`.
-- O extractor faz login de verdade no Avec. **O Avec permite só uma sessão ativa por conta** — não
-  rode o extractor enquanto estiver navegando manualmente logado com o mesmo usuário (a sessão do
-  navegador cai).
+- O repositório GitHub (`joselisou/tanbiuti`) deve ficar **privado** sempre que houver qualquer
+  chance de dados reais estarem no histórico. Alternar visibilidade:
+  `gh repo edit joselisou/tanbiuti --visibility public|private`.
+- O extractor faz login de verdade no sistema de origem. **Ele permite só uma sessão ativa por
+  conta** — não rode o extractor enquanto estiver navegando manualmente logado com o mesmo usuário
+  (a sessão do navegador cai).
 - O extractor é deliberadamente lento (concorrência 1, pausa de 400ms entre chamadas) para não
-  sobrecarregar a API de produção do Avec nem correr risco de bloqueio por rate-limit. Não aumente
-  esses valores sem necessidade real.
+  sobrecarregar a API de produção do sistema de origem nem correr risco de bloqueio por
+  rate-limit. Não aumente esses valores sem necessidade real.
 
 ## Rodando a extração de dados reais
 
@@ -74,20 +75,20 @@ npm install
 npx tsx src/index.ts
 ```
 
-Gera `data/fake/json/dataset.json` e `data/fake/avec-fake-dataset.xml` (determinístico, seed fixa
-— só muda se o gerador mudar).
+Gera `data/fake/json/dataset.json` e `data/fake/tanbiuti-fake-dataset.xml` (determinístico, seed
+fixa — só muda se o gerador mudar).
 
 ### Dataset real (local, nunca commitado)
 
 Ainda não há um script único "JSON real → WXR real" (o `wxr-builder` hoje só é chamado pelo
-gerador fake). Para importar dados reais, use a tela de admin do plugin (**Avec Clone > Importar
-WXR**) ou `wp avec-clone import-wxr <arquivo.xml>` depois de montar o XML a partir dos mappers em
+gerador fake). Para importar dados reais, use a tela de admin do plugin (**Tanbiuti > Importar
+WXR**) ou `wp tanbiuti import-wxr <arquivo.xml>` depois de montar o XML a partir dos mappers em
 `tools/wxr-builder/src/`.
 
-## Plugin WordPress (`plugin/avec-clone`)
+## Plugin WordPress (`plugin/tanbiuti`)
 
 ```bash
-cd plugin/avec-clone
+cd plugin/tanbiuti
 composer install       # PHPCS/WPCS + PHPUnit
 npm install             # wp-env + wp-scripts (build do front-end)
 npm run build            # compila assets/src/{scss,ts} → assets/build/
@@ -113,8 +114,8 @@ npm run lint:css           # stylelint (assets/src/scss)
 ### Import/limpeza via WP-CLI
 
 ```bash
-wp avec-clone import-wxr caminho/para/dataset.xml
-wp avec-clone clean       # remove só os posts importados (identificados por _avec_source_id)
+wp tanbiuti import-wxr caminho/para/dataset.xml
+wp tanbiuti clean       # remove só os posts importados (identificados por _tanbiuti_source_id)
 ```
 
 ## Abrir no WordPress Playground
@@ -123,7 +124,7 @@ Com o repositório **público**, o link abaixo instala o plugin (direto do GitHu
 build/zip) e importa o dataset fake automaticamente:
 
 ```
-https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/joselisou/avec/main/blueprint.json
+https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/joselisou/tanbiuti/main/blueprint.json
 ```
 
 Enquanto o repo estiver privado esse link não funciona (raw.githubusercontent.com não serve
@@ -146,15 +147,15 @@ com o que os geradores produzem.
 ## Estrutura
 
 ```
-avec/
-├── docs/api-reconnaissance.md   # schema dos endpoints reais do Avec (sem dados sensíveis)
+tanbiuti/
+├── docs/api-reconnaissance.md   # schema dos endpoints reais do sistema de origem (sem dados sensíveis)
 ├── tools/
-│   ├── extractor/               # login + extração via API real do Avec
+│   ├── extractor/               # login + extração via API real do sistema de origem
 │   ├── wxr-builder/              # JSON → WXR (WordPress eXtended RSS)
 │   └── fake-data-generator/      # dataset sintético para demo pública
 ├── data/
 │   ├── real/                     # GITIGNORED — saída real da extração
 │   └── fake/                     # versionado — dataset sintético
-├── plugin/avec-clone/            # o plugin WordPress
+├── plugin/tanbiuti/               # o plugin WordPress
 └── blueprint.json                # link "Open in Playground"
 ```

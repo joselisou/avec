@@ -1,4 +1,4 @@
-import type { AvecApiClient } from '../client.js';
+import type { TanbiutiApiClient } from '../client.js';
 
 export interface TabItem {
   id: number;
@@ -34,7 +34,7 @@ export interface ComandaDetail {
 
 /** Fetches the full detail (service line items, commission %, payments) of a single comanda. */
 export async function fetchComandaDetail(
-  client: AvecApiClient,
+  client: TanbiutiApiClient,
   comandaId: number,
 ): Promise<ComandaDetail> {
   return client.get<ComandaDetail>(`/salao/${client.salonId}/comanda/${comandaId}`);

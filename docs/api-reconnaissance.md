@@ -1,10 +1,10 @@
-# Avec Pro — reconhecimento da API (`api.avec.beauty`)
+# Reconhecimento da API do sistema de origem (`api.avec.beauty`)
 
 > Documento vivo. Contém apenas **shapes/schemas** dos endpoints, com valores de exemplo genéricos ou anonimizados. **Nunca** cole aqui payloads reais com nome/telefone/e-mail/valores de clientes reais — use o dataset fake (`data/fake/`) para exemplos.
 
 ## Autenticação
 
-Login em `AVEC_LOGIN_URL` (SPA em `terminal.avec.beauty/login/<salao-slug>`). Após login bem-sucedido e redirecionamento para `/agenda`, os seguintes dados ficam disponíveis diretamente em `localStorage` (não é preciso decodificar o JWT nem interceptar rede):
+Login em `SOURCE_LOGIN_URL` (SPA em `terminal.avec.beauty/login/<salao-slug>`). Após login bem-sucedido e redirecionamento para `/agenda`, os seguintes dados ficam disponíveis diretamente em `localStorage` (não é preciso decodificar o JWT nem interceptar rede):
 
 | Chave localStorage | Conteúdo |
 |---|---|
@@ -18,7 +18,7 @@ Estratégia de extração recomendada: Playwright preenche e envia o formulário
 
 `GET /auth/validate-session` é chamado a cada navegação da SPA para revalidar a sessão — útil para o extractor checar rapidamente se o token ainda é válido antes de um lote de chamadas.
 
-**Observação operacional**: o Avec parece permitir só uma sessão ativa por conta — rodar o extractor (que faz seu próprio login) invalidou o token de uma aba do navegador logada com a mesma conta simultaneamente. Não rodar o extractor e navegar manualmente logado ao mesmo tempo com o mesmo usuário.
+**Observação operacional**: o sistema de origem parece permitir só uma sessão ativa por conta — rodar o extractor (que faz seu próprio login) invalidou o token de uma aba do navegador logada com a mesma conta simultaneamente. Não rodar o extractor e navegar manualmente logado ao mesmo tempo com o mesmo usuário.
 
 ## Endpoints confirmados
 
@@ -128,9 +128,9 @@ Nota: a resposta usa a chave singular `salonClient` (objeto), diferente da lista
 
 ### Vale Rápido — funcionalidade DESATIVADA para esta conta
 
-A tela `/vale-rapido` carrega mas exibe: *"Esta funcionalidade ainda não está disponível para você, entre em contato com o estabelecimento para a ativação desta funcionalidade"*. Nenhuma chamada de API de dados é feita (só `validate-session`). **Não há dados para extrair hoje.** O CPT `avec_vale_rapido` no plugin fica com schema placeholder, sem dados reais até a funcionalidade ser ativada pela Avec — comunicar isso ao usuário antes de considerar essa parte "pronta".
+A tela `/vale-rapido` carrega mas exibe: *"Esta funcionalidade ainda não está disponível para você, entre em contato com o estabelecimento para a ativação desta funcionalidade"*. Nenhuma chamada de API de dados é feita (só `validate-session`). **Não há dados para extrair hoje.** O CPT `tanbiuti_vale_rapido` no plugin fica com schema placeholder, sem dados reais até a funcionalidade ser ativada no sistema de origem — comunicar isso ao usuário antes de considerar essa parte "pronta".
 
 ## Pontos ainda em aberto
 
 - Schema de `data.blocked[]` na Agenda (não observado com itens nos dias testados).
-- Confirmar se `tab_items[].tipo` tem um enum fechado de valores (`salao_servicos` foi o único visto) — relevante para a taxonomia `avec_recibo_tipo`/categoria do item.
+- Confirmar se `tab_items[].tipo` tem um enum fechado de valores (`salao_servicos` foi o único visto) — relevante para a taxonomia `tanbiuti_recibo_tipo`/categoria do item.

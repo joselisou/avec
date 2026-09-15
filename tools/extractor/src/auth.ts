@@ -9,7 +9,7 @@ export interface Session {
 }
 
 /**
- * Logs into the Avec Pro terminal with a headless browser and reads the session
+ * Logs into the source app's terminal with a headless browser and reads the session
  * data straight out of localStorage — the SPA stores the JWT and the salon/professional
  * ids there under plain keys (`token`, `salon_id`, `salon_slug`, `professional_id`)
  * after a successful login, so there is no need to intercept network responses

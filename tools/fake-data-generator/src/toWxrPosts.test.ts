@@ -26,29 +26,29 @@ describe('toWxrPosts', () => {
   const posts = toWxrPosts(dataset);
 
   it('produces one post per cliente, comanda, tab_item and booking', () => {
-    // 1 cliente + 1 comanda + 1 tab_item (avec_recibo) + 1 booking = 4
+    // 1 cliente + 1 comanda + 1 tab_item (tanbiuti_recibo) + 1 booking = 4
     expect(posts).toHaveLength(4);
     expect(posts.map((p) => p.postType).sort()).toEqual([
-      'avec_agendamento',
-      'avec_cliente',
-      'avec_comanda',
-      'avec_recibo',
+      'tanbiuti_agendamento',
+      'tanbiuti_cliente',
+      'tanbiuti_comanda',
+      'tanbiuti_recibo',
     ]);
   });
 
   it('computes comanda total net of discounts', () => {
-    const comandaPost = posts.find((p) => p.postType === 'avec_comanda')!;
-    expect(comandaPost.meta?._avec_total).toBe(80); // 90 - 10 desconto
+    const comandaPost = posts.find((p) => p.postType === 'tanbiuti_comanda')!;
+    expect(comandaPost.meta?._tanbiuti_total).toBe(80); // 90 - 10 desconto
   });
 
-  it('links avec_recibo back to its comanda via source id', () => {
-    const reciboPost = posts.find((p) => p.postType === 'avec_recibo')!;
-    expect(reciboPost.meta?._avec_comanda_source_id).toBe(100);
-    expect(reciboPost.meta?._avec_comissao).toBe(40);
+  it('links tanbiuti_recibo back to its comanda via source id', () => {
+    const reciboPost = posts.find((p) => p.postType === 'tanbiuti_recibo')!;
+    expect(reciboPost.meta?._tanbiuti_comanda_source_id).toBe(100);
+    expect(reciboPost.meta?._tanbiuti_comissao).toBe(40);
   });
 
-  it('tags avec_agendamento with its status as a taxonomy term', () => {
-    const agendamentoPost = posts.find((p) => p.postType === 'avec_agendamento')!;
-    expect(agendamentoPost.terms).toEqual([{ taxonomy: 'avec_agendamento_status', name: 'concluido' }]);
+  it('tags tanbiuti_agendamento with its status as a taxonomy term', () => {
+    const agendamentoPost = posts.find((p) => p.postType === 'tanbiuti_agendamento')!;
+    expect(agendamentoPost.terms).toEqual([{ taxonomy: 'tanbiuti_agendamento_status', name: 'concluido' }]);
   });
 });

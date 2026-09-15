@@ -1,9 +1,9 @@
 {
-  "name": "@avec-clone/fake-data-generator",
+  "name": "@tanbiuti/fake-data-generator",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Gera um dataset sintético (faker, seed fixa) com o mesmo shape dos dados reais do Avec Pro, e monta o WXR versionado usado pelo blueprint do Playground.",
+  "description": "Gera um dataset sintético (faker, seed fixa) com o mesmo shape dos dados reais extraídos, e monta o WXR versionado usado pelo blueprint do Playground.",
   "scripts": {
     "dev": "tsx src/index.ts",
     "build": "tsc -p tsconfig.json",

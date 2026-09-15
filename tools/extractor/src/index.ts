@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import pLimit from 'p-limit';
 import { config } from './config.js';
-import { AvecApiClient } from './client.js';
+import { TanbiutiApiClient } from './client.js';
 import { eachDate, todayIso } from './dateRange.js';
 import { fetchAgendaDay, type Booking } from './endpoints/agenda.js';
 import { fetchComandaDetail, type ComandaDetail } from './endpoints/comanda.js';
@@ -13,8 +13,8 @@ import { collectClienteIds } from './collectClienteIds.js';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const dataRoot = path.resolve(here, '../../../data/real');
 
-// Sequential on purpose — this hits Avec's real production API, not a sandbox. Combined with the
-// fixed per-request delay in AvecApiClient.get(), this keeps load light and spread out instead
+// Sequential on purpose — this hits the source system's real production API, not a sandbox. Combined with the
+// fixed per-request delay in TanbiutiApiClient.get(), this keeps load light and spread out instead
 // of bursty, to avoid tripping rate limits or adding noticeable load to their system.
 const AGENDA_CONCURRENCY = 1;
 const COMANDA_CONCURRENCY = 1;
@@ -55,9 +55,9 @@ function parseArgs(argv: string[]): CliOptions {
 
 async function main(): Promise<void> {
   const { from, to, force } = parseArgs(process.argv.slice(2));
-  console.log(`Extracting Avec Pro data from ${from} to ${to} (force=${force})`);
+  console.log(`Extracting source data from ${from} to ${to} (force=${force})`);
 
-  const client = await AvecApiClient.create();
+  const client = await TanbiutiApiClient.create();
   console.log(`Logged in. salon_id=${client.salonId} professional_id=${client.professionalId}`);
 
   const agendaLimit = pLimit(AGENDA_CONCURRENCY);

@@ -1,9 +1,9 @@
 {
-  "name": "@avec-clone/wxr-builder",
+  "name": "@tanbiuti/wxr-builder",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Converte o JSON normalizado extraído do Avec Pro em um arquivo WXR (WordPress eXtended RSS) para import no plugin.",
+  "description": "Converte o JSON normalizado extraído da fonte em um arquivo WXR (WordPress eXtended RSS) para import no plugin.",
   "scripts": {
     "dev": "tsx src/index.ts",
     "build": "tsc -p tsconfig.json",

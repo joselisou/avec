@@ -10,7 +10,7 @@ tools/extractor/.token-cache.json
 
 # Build output that isn't meant to be committed
 tools/*/dist/
-plugin/avec-clone/*.zip
+plugin/tanbiuti/*.zip
 
 # PHPUnit/test runtime artifacts
 .phpunit.result.cache

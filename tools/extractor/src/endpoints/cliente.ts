@@ -1,4 +1,4 @@
-import type { AvecApiClient } from '../client.js';
+import type { TanbiutiApiClient } from '../client.js';
 
 export interface SalonClient {
   id: number;
@@ -26,7 +26,7 @@ interface ClienteDetailResponse {
 
 /** Fetches full detail for a single salon client (name, contact info, CRM fields). */
 export async function fetchClienteDetail(
-  client: AvecApiClient,
+  client: TanbiutiApiClient,
   salaoClienteId: number,
 ): Promise<SalonClient> {
   const response = await client.get<ClienteDetailResponse>(

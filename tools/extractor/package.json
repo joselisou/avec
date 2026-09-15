@@ -1,9 +1,9 @@
 {
-  "name": "@avec-clone/extractor",
+  "name": "@tanbiuti/extractor",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Extrai o histórico do painel Avec Pro (agenda, comandas, clientes) via login autenticado + chamadas diretas à API.",
+  "description": "Extrai o histórico de um painel de gestão de salão (agenda, comandas, clientes) via login autenticado + chamadas diretas à API.",
   "scripts": {
     "dev": "tsx src/index.ts",
     "build": "tsc -p tsconfig.json",

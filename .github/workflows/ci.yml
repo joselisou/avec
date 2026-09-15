@@ -40,13 +40,13 @@ jobs:
           php-version: '8.1'
           tools: composer
       - name: Install dependencies
-        working-directory: plugin/avec-clone
+        working-directory: plugin/tanbiuti
         run: composer install --no-interaction --prefer-dist
       - name: PHPCS (WPCS)
-        working-directory: plugin/avec-clone
+        working-directory: plugin/tanbiuti
         run: composer lint
       - name: PHP syntax check
-        working-directory: plugin/avec-clone
+        working-directory: plugin/tanbiuti
         run: find . -name "*.php" -not -path "./vendor/*" -print0 | xargs -0 -n1 php -l
 
   plugin-assets:
@@ -58,22 +58,22 @@ jobs:
         with:
           node-version: 24
       - name: Install dependencies
-        working-directory: plugin/avec-clone
+        working-directory: plugin/tanbiuti
         run: npm install
       - name: Lint JS/TS
-        working-directory: plugin/avec-clone
+        working-directory: plugin/tanbiuti
         run: npm run lint:js
       - name: Lint CSS/SCSS
-        working-directory: plugin/avec-clone
+        working-directory: plugin/tanbiuti
         run: npm run lint:css
       - name: Build
-        working-directory: plugin/avec-clone
+        working-directory: plugin/tanbiuti
         run: npm run build
       - name: Fail if built assets are out of date
-        working-directory: plugin/avec-clone
+        working-directory: plugin/tanbiuti
         run: |
           if [ -n "$(git status --porcelain assets/build)" ]; then
-            echo "assets/build is out of date — run 'npm run build' in plugin/avec-clone and commit the result."
+            echo "assets/build is out of date — run 'npm run build' in plugin/tanbiuti and commit the result."
             git diff assets/build
             exit 1
           fi
@@ -91,16 +91,16 @@ jobs:
           php-version: '8.1'
           tools: composer
       - name: Install Composer dependencies
-        working-directory: plugin/avec-clone
+        working-directory: plugin/tanbiuti
         run: composer install --no-interaction --prefer-dist
       - name: Install Node dependencies
-        working-directory: plugin/avec-clone
+        working-directory: plugin/tanbiuti
         run: npm install
       - name: Start wp-env
-        working-directory: plugin/avec-clone
+        working-directory: plugin/tanbiuti
         run: npx wp-env start
       - name: Run PHPUnit
-        working-directory: plugin/avec-clone
+        working-directory: plugin/tanbiuti
         run: npm run test:php
 
   plugin-wxr-fixture:
@@ -122,8 +122,8 @@ jobs:
         run: npm install && npx tsx src/index.ts
       - name: Fail if generated files are out of date
         run: |
-          if [ -n "$(git status --porcelain plugin/avec-clone/tests/fixtures data/fake)" ]; then
+          if [ -n "$(git status --porcelain plugin/tanbiuti/tests/fixtures data/fake)" ]; then
             echo "Generated WXR fixtures are out of date — regenerate and commit them."
-            git status --porcelain plugin/avec-clone/tests/fixtures data/fake
+            git status --porcelain plugin/tanbiuti/tests/fixtures data/fake
             exit 1
           fi

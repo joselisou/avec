@@ -21,12 +21,12 @@ async function main(): Promise<void> {
 
   const posts = toWxrPosts(dataset);
   const xml = buildWxr(posts, {
-    siteTitle: 'Avec Clone (dataset fake)',
+    siteTitle: 'Tanbiuti (dataset fake)',
     siteUrl: 'http://localhost:8888',
     authorLogin: 'admin',
   });
 
-  await fs.writeFile(path.join(dataFakeRoot, 'avec-fake-dataset.xml'), xml);
+  await fs.writeFile(path.join(dataFakeRoot, 'tanbiuti-fake-dataset.xml'), xml);
 
   console.log(
     `Generated fake dataset: ${dataset.clientes.length} clientes, ${dataset.comandas.length} comandas, ${dataset.bookings.length} agendamentos → ${posts.length} posts WXR.`,

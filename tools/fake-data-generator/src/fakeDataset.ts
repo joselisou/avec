@@ -78,7 +78,7 @@ function toIsoDate(baseIso: string, offsetDays: number): string {
   return date.toISOString().slice(0, 10);
 }
 
-/** Generates a small, deterministic fake dataset with the same shape as the real Avec data. */
+/** Generates a small, deterministic fake dataset with the same shape as the real extracted data. */
 export function generateFakeDataset(): FakeDataset {
   const faker = new Faker({ locale: [pt_BR, en] });
   faker.seed(SEED);
